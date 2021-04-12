@@ -9,7 +9,6 @@ from core.models import Tag
 
 from recipe.serializers import TagSerializer
 
-
 TAGS_URL = reverse('recipe:tag-list')
 
 
@@ -72,7 +71,10 @@ class PrivateTagsApiTests(TestCase):
         }
         self.client.post(TAGS_URL, payload)
 
-        exists = Tag.objects.filter(user=self.user, name=payload['name']).exits
+        exists = Tag.objects.filter(
+            user=self.user,
+            name=payload['name']
+        ).exists
 
         self.assertTrue(exists)
 
